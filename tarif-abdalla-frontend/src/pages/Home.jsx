@@ -1,5 +1,6 @@
 import React from "react";
 import photo from "../assets/tarif.png";
+import { NavLink } from "react-router-dom";
 
 export default function Home() {
   return (
@@ -20,7 +21,7 @@ export default function Home() {
         </p>
 
         <p>
-          <a className="cta" href="/projects" aria-label="See my projects">See my projects →</a>
+          <NavLink to="/projects" className="cta" aria-label="See my projects">See my projects →</NavLink>
         </p>
       </div>
     </div>

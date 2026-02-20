@@ -12,6 +12,18 @@ app.use(morgan("dev"));
 app.use(cors());
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.json({ success: true, message: "API is running" });
+});
+
+app.get("/api", (req, res) => {
+  res.json({
+    success: true,
+    message: "API base route",
+    routes: ["/api/users", "/api/projects", "/api/services", "/api/references"],
+  });
+});
+
 app.use("/api", apiRoutes);
 
 app.use((req, res, next) => {

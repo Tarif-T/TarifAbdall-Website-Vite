@@ -13,10 +13,11 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.json({ success: true, message: "API is running" });
+  res.json({ success: true, message: "Welcome to Tarif Abdalla's Portfolio Website Backend API" });
 });
 
 app.get("/api", (req, res) => {
+  
   res.json({
     success: true,
     message: "API base route",

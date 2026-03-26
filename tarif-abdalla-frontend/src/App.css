@@ -1,8 +1,8 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: left;
 }
 
 .logo {
@@ -256,6 +256,99 @@ main {
 }
 .section-header h2 { margin: 0; }
 
+.crud-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.85rem;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-weight: 500;
+}
+
+.field-group input,
+.field-group textarea {
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 10px;
+  padding: 0.62rem 0.72rem;
+  background: rgba(15, 23, 42, 0.4);
+  color: #e2e8f0;
+}
+
+.field-group textarea {
+  resize: vertical;
+}
+
+.crud-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 0.3rem;
+  flex-wrap: wrap;
+}
+
+.crud-btn {
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  color: #e2e8f0;
+  background: rgba(15, 23, 42, 0.5);
+  border-radius: 10px;
+  padding: 0.5rem 0.9rem;
+}
+
+.crud-btn.primary {
+  background: linear-gradient(90deg, #06b6d4, #2563eb);
+  border-color: transparent;
+}
+
+.crud-btn.danger {
+  background: linear-gradient(90deg, #f97316, #dc2626);
+  border-color: transparent;
+}
+
+.message {
+  margin-top: 0.9rem;
+  padding: 0.7rem 0.8rem;
+  border-radius: 10px;
+}
+
+.message.success {
+  background: rgba(34, 197, 94, 0.17);
+  border: 1px solid rgba(34, 197, 94, 0.32);
+}
+
+.message.error {
+  background: rgba(239, 68, 68, 0.17);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+}
+
+.record-list {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.record-card {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.95rem;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.35);
+}
+
+.record-content p {
+  margin: 0 0 0.35rem;
+}
+
+.record-actions {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -303,6 +396,12 @@ main {
 
 @media (max-width: 700px) {
   .container { padding: 1rem; }
+  .record-card {
+    flex-direction: column;
+  }
+  .record-actions {
+    align-items: center;
+  }
 }
 
 /* Footer styles */

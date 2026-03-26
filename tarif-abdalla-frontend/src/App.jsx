@@ -5,6 +5,7 @@ import About from "./pages/About";
 import Projects from "./pages/Projects";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
+import Users from "./pages/Users";
 import logo from "./assets/ta-final_logo.png";
 import "./App.css";
 
@@ -24,6 +25,7 @@ export default function App() {
             <NavLink to="/about" className={({isActive})=> isActive ? 'nav-link active' : 'nav-link'}>About</NavLink>
             <NavLink to="/projects" className={({isActive})=> isActive ? 'nav-link active' : 'nav-link'}>Projects</NavLink>
             <NavLink to="/services" className={({isActive})=> isActive ? 'nav-link active' : 'nav-link'}>Services</NavLink>
+            <NavLink to="/users" className={({isActive})=> isActive ? 'nav-link active' : 'nav-link'}>Users</NavLink>
             <NavLink to="/contact" className={({isActive})=> isActive ? 'nav-link active' : 'nav-link'}>Contact</NavLink>
           </nav>
 
@@ -39,6 +41,7 @@ export default function App() {
           <Route path="/about" element={<About />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/users" element={<Users />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </main>
@@ -57,6 +60,7 @@ export default function App() {
               <NavLink to="/about" className="footer-link">About</NavLink>
               <NavLink to="/projects" className="footer-link">Projects</NavLink>
               <NavLink to="/services" className="footer-link">Services</NavLink>
+              <NavLink to="/users" className="footer-link">Users</NavLink>
               <NavLink to="/contact" className="footer-link">Contact</NavLink>
             </nav>
           </div>

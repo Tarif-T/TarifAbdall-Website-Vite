@@ -21,7 +21,7 @@ app.get("/api", (req, res) => {
   res.json({
     success: true,
     message: "API base route",
-    routes: ["/api/users", "/api/projects", "/api/services", "/api/references"],
+    routes: ["/api/users", "/api/projects", "/api/services", "/api/references", "/api/contacts"],
   });
 });
 

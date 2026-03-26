@@ -35,6 +35,13 @@ Base URL: `http://localhost:3000`
 - `PUT /api/references/:id`
 - `DELETE /api/references/:id`
 
+### Contacts (alias for references)
+- `GET /api/contacts`
+- `GET /api/contacts/:id`
+- `POST /api/contacts`
+- `PUT /api/contacts/:id`
+- `DELETE /api/contacts/:id`
+
 ### Projects
 - `GET /api/projects`
 - `GET /api/projects/:id`

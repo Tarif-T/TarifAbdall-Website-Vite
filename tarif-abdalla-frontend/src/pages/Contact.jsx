@@ -1,30 +1,14 @@
-import React from "react";
+import CrudManager from "../components/CrudManager";
+
+const fields = [
+  { name: "firstname", label: "First Name", required: true, placeholder: "Jane" },
+  { name: "lastname", label: "Last Name", required: true, placeholder: "Doe" },
+  { name: "email", label: "Email", type: "email", required: true, placeholder: "jane@company.com" },
+  { name: "position", label: "Position", placeholder: "Manager" },
+  { name: "company", label: "Company", placeholder: "Company name" },
+];
 
 export default function Contact() {
-  return (
-    <div>
-      <h1>Contact Me</h1>
-      <hr />
-
-      <section>
-        <p><strong>Email:</strong> tarifelsir@gmail.com</p>
-        <p><strong>Location:</strong> Ontario, Canada</p>
-
-        <h2>Get in Touch</h2>
-        <form>
-          <label>Name:</label><br />
-          <input type="text" /><br /><br />
-
-          <label>Email:</label><br />
-          <input type="email" /><br /><br />
-
-          <label>Message:</label><br />
-          <textarea rows="5"></textarea><br /><br />
-
-          <button type="submit">Send</button>
-        </form>
-      </section>
-    </div>
-  );
+  return <CrudManager title="Contacts" endpoint="contacts" fields={fields} />;
 }
 

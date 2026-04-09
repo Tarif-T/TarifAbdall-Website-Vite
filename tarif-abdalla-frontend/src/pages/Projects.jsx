@@ -1,18 +1,169 @@
-import CrudManager from "../components/CrudManager";
+import { startTransition, useDeferredValue, useEffect, useMemo, useState } from "react";
+import { NavLink } from "react-router-dom";
 
-const fields = [
-  { name: "title", label: "Title", required: true, placeholder: "Project title" },
-  { name: "completion", label: "Completion Date", type: "date", required: true },
-  {
-    name: "description",
-    label: "Description",
-    type: "textarea",
-    required: true,
-    placeholder: "Brief project summary",
-  },
-];
+import modelOne from "../assets/3D-model01.jpeg";
+import modelTwo from "../assets/3d-model02.jpeg";
+import marketing from "../assets/FB-marketing.jpeg";
+import webApp from "../assets/web-app01.jpeg";
+import { apiRequest } from "../api";
+import { useAuth } from "../context/AuthContext";
 
-export default function Projects() {
-  return <CrudManager title="Projects" endpoint="projects" fields={fields} />;
+const projectArtwork = [webApp, marketing, modelOne, modelTwo];
+
+function formatCompletion(value) {
+  if (!value) {
+    return "No completion date";
+  }
+
+  return new Intl.DateTimeFormat("en-CA", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  }).format(new Date(value));
 }
 
+export default function Projects() {
+  const { isAuthenticated } = useAuth();
+  const [projects, setProjects] = useState([]);
+  const [query, setQuery] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
+  const deferredQuery = useDeferredValue(query);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadProjects() {
+      try {
+        setIsLoading(true);
+        setError("");
+        const response = await apiRequest("/projects");
+
+        if (isMounted) {
+          setProjects(Array.isArray(response.data) ? response.data : []);
+        }
+      } catch (err) {
+        if (isMounted) {
+          setError(err.message || "Failed to load projects.");
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    }
+
+    void loadProjects();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const filteredProjects = useMemo(() => {
+    const normalizedQuery = deferredQuery.trim().toLowerCase();
+    const sortedProjects = [...projects].sort(
+      (a, b) => new Date(b.completion).getTime() - new Date(a.completion).getTime()
+    );
+
+    if (!normalizedQuery) {
+      return sortedProjects;
+    }
+
+    return sortedProjects.filter((project) =>
+      [project.title, project.description].some((value) =>
+        String(value || "").toLowerCase().includes(normalizedQuery)
+      )
+    );
+  }, [deferredQuery, projects]);
+
+  const latestProject = filteredProjects[0];
+
+  function onSearchChange(event) {
+    const nextValue = event.target.value;
+    startTransition(() => {
+      setQuery(nextValue);
+    });
+  }
+
+  return (
+    <div className="container">
+      <section className="section-card page-hero">
+        <div className="page-hero-row">
+          <div>
+            <p className="eyebrow">Projects</p>
+            <h1>Portfolio work connected to the live backend.</h1>
+            <p className="section-lead">
+              This page is optimized for browsing. Projects are sorted by completion date and can
+              be filtered instantly while the input stays responsive.
+            </p>
+          </div>
+
+          <div className="search-panel">
+            <label className="field-group">
+              <span>Search projects</span>
+              <input
+                type="search"
+                placeholder="Filter by title or description"
+                value={query}
+                onChange={onSearchChange}
+              />
+            </label>
+          </div>
+        </div>
+
+        <div className="summary-grid">
+          <article className="summary-card">
+            <span className="summary-number">{projects.length}</span>
+            <span className="summary-label">Total projects</span>
+          </article>
+          <article className="summary-card">
+            <span className="summary-number">{filteredProjects.length}</span>
+            <span className="summary-label">Visible after filter</span>
+          </article>
+          <article className="summary-card">
+            <span className="summary-number">
+              {latestProject ? formatCompletion(latestProject.completion) : "Pending"}
+            </span>
+            <span className="summary-label">Latest completion</span>
+          </article>
+        </div>
+      </section>
+
+      {error ? <p className="message error">{error}</p> : null}
+      {isLoading ? <p className="section-card">Loading projects...</p> : null}
+
+      {!isLoading && filteredProjects.length === 0 ? (
+        <section className="section-card empty-state">
+          <h2>No projects matched your search.</h2>
+          <p>Try a different keyword or add new work from the protected dashboard.</p>
+          <NavLink to={isAuthenticated ? "/dashboard" : "/signin"} className="cta small">
+            {isAuthenticated ? "Manage projects" : "Sign in"}
+          </NavLink>
+        </section>
+      ) : null}
+
+      {!isLoading && filteredProjects.length > 0 ? (
+        <section className="content-grid">
+          {filteredProjects.map((project, index) => (
+            <article key={project.id} className="portfolio-card project-card">
+              <div className="project-art">
+                <img
+                  src={projectArtwork[index % projectArtwork.length]}
+                  alt={project.title}
+                  loading="lazy"
+                />
+              </div>
+
+              <div className="project-card-body">
+                <p className="footer-label">{formatCompletion(project.completion)}</p>
+                <h2>{project.title}</h2>
+                <p>{project.description}</p>
+              </div>
+            </article>
+          ))}
+        </section>
+      ) : null}
+    </div>
+  );
+}

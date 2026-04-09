@@ -1,13 +1,40 @@
 const createError = require("http-errors");
 const User = require("../models/user.model");
-const { isValidObjectId, mapToPublicIds, toPublicId } = require("../utils/to-public-id");
+const { isValidObjectId, toPublicId } = require("../utils/to-public-id");
+const { hashPassword, verifyPassword } = require("../utils/password");
+const { createAuthToken } = require("../utils/token");
+
+const normalizeEmail = (email) => String(email || "").trim().toLowerCase();
+
+const sanitizeUser = (user) => {
+  const publicUser = user?._id ? toPublicId(user) : { ...user };
+  delete publicUser.password;
+  return publicUser;
+};
+
+const handleDuplicateEmail = (error, next) => {
+  if (error?.code === 11000) {
+    return next(createError(409, "A user with this email already exists."));
+  }
+
+  return next(error);
+};
 
 const createUser = async (req, res, next) => {
   try {
+    const email = normalizeEmail(req.body.email);
+    const password = String(req.body.password || "");
+
+    if (!email || !password) {
+      return next(createError(400, "Email and password are required."));
+    }
+
     const payload = {
       ...req.body,
+      email,
+      password: await hashPassword(password),
       created: req.body.created || new Date(),
-      updated: req.body.updated || new Date(),
+      updated: new Date(),
     };
 
     const user = await User.create(payload);
@@ -15,7 +42,47 @@ const createUser = async (req, res, next) => {
     return res.status(201).json({
       success: true,
       message: "User added successfully.",
-      data: toPublicId(user),
+      data: sanitizeUser(user),
+    });
+  } catch (error) {
+    return handleDuplicateEmail(error, next);
+  }
+};
+
+const signInUser = async (req, res, next) => {
+  try {
+    const email = normalizeEmail(req.body.email);
+    const password = String(req.body.password || "");
+
+    if (!email || !password) {
+      return next(createError(400, "Email and password are required."));
+    }
+
+    const user = await User.findOne({ email }).select("+password");
+
+    if (!user) {
+      return next(createError(401, "Invalid email or password."));
+    }
+
+    const isPasswordValid = await verifyPassword(password, user.password);
+
+    if (!isPasswordValid) {
+      return next(createError(401, "Invalid email or password."));
+    }
+
+    const token = createAuthToken({
+      sub: String(user._id),
+      email: user.email,
+      name: `${user.firstname} ${user.lastname}`.trim(),
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Signed in successfully.",
+      data: {
+        token,
+        user: sanitizeUser(user),
+      },
     });
   } catch (error) {
     return next(error);
@@ -24,12 +91,12 @@ const createUser = async (req, res, next) => {
 
 const getUsers = async (req, res, next) => {
   try {
-    const users = await User.find().sort({ created: 1 });
+    const users = await User.find().sort({ created: 1 }).select("-password");
 
     return res.status(200).json({
       success: true,
       message: "Users list retrieved successfully.",
-      data: mapToPublicIds(users),
+      data: users.map((user) => sanitizeUser(user)),
     });
   } catch (error) {
     return next(error);
@@ -44,7 +111,7 @@ const getUserById = async (req, res, next) => {
       return next(createError(400, "Invalid user id."));
     }
 
-    const user = await User.findById(id);
+    const user = await User.findById(id).select("-password");
 
     if (!user) {
       return next(createError(404, "User not found."));
@@ -53,7 +120,7 @@ const getUserById = async (req, res, next) => {
     return res.status(200).json({
       success: true,
       message: "User retrieved successfully.",
-      data: toPublicId(user),
+      data: sanitizeUser(user),
     });
   } catch (error) {
     return next(error);
@@ -73,6 +140,14 @@ const updateUserById = async (req, res, next) => {
       updated: new Date(),
     };
 
+    if (payload.email !== undefined) {
+      payload.email = normalizeEmail(payload.email);
+    }
+
+    if (payload.password) {
+      payload.password = await hashPassword(String(payload.password));
+    }
+
     const user = await User.findByIdAndUpdate(id, payload, {
       new: true,
       runValidators: true,
@@ -87,7 +162,7 @@ const updateUserById = async (req, res, next) => {
       message: "User updated successfully.",
     });
   } catch (error) {
-    return next(error);
+    return handleDuplicateEmail(error, next);
   }
 };
 
@@ -116,6 +191,7 @@ const deleteUserById = async (req, res, next) => {
 
 module.exports = {
   createUser,
+  signInUser,
   getUsers,
   getUserById,
   updateUserById,

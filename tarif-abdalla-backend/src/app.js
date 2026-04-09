@@ -17,11 +17,18 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api", (req, res) => {
-  
   res.json({
     success: true,
     message: "API base route",
-    routes: ["/api/users", "/api/projects", "/api/services", "/api/references", "/api/contacts"],
+    routes: [
+      "/api/users",
+      "/api/users/signup",
+      "/api/users/signin",
+      "/api/projects",
+      "/api/services",
+      "/api/references",
+      "/api/contacts",
+    ],
   });
 });
 

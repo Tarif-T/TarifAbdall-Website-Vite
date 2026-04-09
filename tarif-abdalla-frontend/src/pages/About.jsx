@@ -1,50 +1,100 @@
-import React from "react";
+const skillGroups = [
+  "Electronic engineering foundations",
+  "Multimedia and broadcast production",
+  "Audio visual communication",
+  "Digital marketing certificate perspective",
+  "React and modern frontend delivery",
+  "Node.js, Express, and MongoDB",
+  "Authentication and protected workflows",
+  "AI, machine learning, and software engineering",
+];
+
+const journeySteps = [
+  {
+    title: "Electronic Engineering",
+    description:
+      "My early foundation came from electronic engineering, where I developed analytical thinking, comfort with technical systems, and a strong respect for disciplined problem solving.",
+  },
+  {
+    title: "Multimedia, Audio Visual, and Broadcasting",
+    description:
+      "From there I moved into multimedia, audio visual, and broadcasting environments. That experience strengthened my understanding of presentation, timing, storytelling, and how people actually receive information.",
+  },
+  {
+    title: "Digital Marketing",
+    description:
+      "Earning a digital marketing certificate added an audience and strategy lens. It trained me to think not only about building something functional, but also about visibility, engagement, and communication impact.",
+  },
+  {
+    title: "AI and Software Engineering",
+    description:
+      "Today I bring those layers together in AI and software engineering: technical depth from engineering, presentation awareness from media work, and user-facing strategy from marketing.",
+  },
+];
+
+const studioPrinciples = [
+  { title: "Signal", description: "Technical clarity and systems logic." },
+  { title: "Frame", description: "Visual composition and presentation awareness." },
+  { title: "Audience", description: "Marketing and communication perspective." },
+  { title: "Build", description: "AI workflows and software execution." },
+];
 
 export default function About() {
   return (
     <div className="container">
-      <div className="section-card">
-        <div className="section-header">
-          <h1>About Me</h1>
+      <section className="section-card about-panel">
+        <p className="eyebrow">About Me</p>
+        <div className="about-intro-grid">
+          <div>
+            <h1>A multidisciplinary path shaping how I build software today.</h1>
+            <p className="section-lead">
+              My profile is not built from a single track. It comes from electronic engineering,
+              multimedia and broadcasting work, digital marketing study, and a current focus on AI
+              and software engineering. That combination makes me care deeply about both systems and
+              communication.
+            </p>
+          </div>
+
+          <aside className="about-accent-card">
+            <p className="footer-label">Creative System</p>
+            <p>
+              I like work that feels engineered and composed at the same time: clear underneath,
+              expressive on the surface, and purposeful in how it reaches people.
+            </p>
+
+            <div className="principle-grid">
+              {studioPrinciples.map((principle) => (
+                <article key={principle.title} className="principle-card">
+                  <strong>{principle.title}</strong>
+                  <span>{principle.description}</span>
+                </article>
+              ))}
+            </div>
+          </aside>
         </div>
 
-        <p>
-          My name is <strong>Tarif Abdalla</strong>. I combine software engineering
-          and AI expertise to deliver production systems and intelligent features for
-          construction, surveying, and enterprise workflows.
-        </p>
+        <div className="two-column-layout">
+          <div className="narrative-stack">
+            {journeySteps.map((step) => (
+              <article key={step.title} className="timeline-card">
+                <p className="footer-label">{step.title}</p>
+                <p>{step.description}</p>
+              </article>
+            ))}
+          </div>
 
-        <p>
-          I design and implement data pipelines, train and validate machine learning
-          models, and deploy scalable inference services (MLOps). My day-to-day tools
-          include Python, PyTorch, TensorFlow, Docker, and cloud platforms for model
-          serving and monitoring.
-        </p>
-
-        <p>
-          Alongside reality-capture and BIM delivery, I focus on embedding automation
-          and AI-driven analytics into products — from object detection in point clouds
-          to predictive maintenance and process automation.
-        </p>
-      </div>
-
-      <div className="section-card">
-        <div className="section-header">
-          <h2>Core Skills</h2>
+          <aside className="skill-panel">
+            <p className="footer-label">Working Areas</p>
+            <div className="skill-cloud">
+              {skillGroups.map((skill) => (
+                <span key={skill} className="skill-pill">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </aside>
         </div>
-
-        <ul className="skill-list">
-          <li className="skill-badge">API Design</li>
-          <li className="skill-badge">React</li>
-          <li className="skill-badge">Node.js</li>
-          <li className="skill-badge">Python</li>
-          <li className="skill-badge">PyTorch</li>
-          <li className="skill-badge">TensorFlow</li>
-          <li className="skill-badge">MLOps</li>
-          <li className="skill-badge">Kubernetes</li>
-        </ul>
-      </div>
+      </section>
     </div>
   );
 }
-

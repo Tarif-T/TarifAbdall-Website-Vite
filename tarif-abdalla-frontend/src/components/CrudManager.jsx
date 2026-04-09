@@ -1,27 +1,61 @@
-import { useEffect, useMemo, useState } from "react";
+import { startTransition, useCallback, useEffect, useMemo, useState } from "react";
+
 import { apiRequest } from "../api";
 
 function buildInitialForm(fields) {
   return fields.reduce((acc, field) => {
-    acc[field.name] = field.defaultValue || "";
+    acc[field.name] = field.defaultValue ?? "";
     return acc;
   }, {});
 }
 
-function normalizeForEdit(value, type) {
+function normalizeForEdit(field, item) {
+  if (field.clearOnEdit) {
+    return "";
+  }
+
+  const value = item[field.name];
+
   if (value == null) {
     return "";
   }
 
-  if (type === "date") {
+  if (field.type === "date") {
     return String(value).slice(0, 10);
   }
 
   return String(value);
 }
 
-export default function CrudManager({ title, endpoint, fields }) {
+function getFieldRequired(field, isEditing) {
+  if (isEditing) {
+    return field.requiredOnEdit ?? field.required ?? false;
+  }
+
+  return field.requiredOnCreate ?? field.required ?? false;
+}
+
+function getDisplayValue(field, item) {
+  const rawValue = item[field.name];
+
+  if (typeof field.formatListValue === "function") {
+    return field.formatListValue(rawValue, item);
+  }
+
+  return rawValue || "-";
+}
+
+export default function CrudManager({
+  title,
+  endpoint,
+  fields,
+  requiresAuth = false,
+  intro = "",
+  listTitle,
+  emptyMessage = "No records found yet.",
+}) {
   const initialForm = useMemo(() => buildInitialForm(fields), [fields]);
+  const visibleFields = useMemo(() => fields.filter((field) => !field.hideOnList), [fields]);
   const [items, setItems] = useState([]);
   const [form, setForm] = useState(initialForm);
   const [editingId, setEditingId] = useState("");
@@ -34,22 +68,25 @@ export default function CrudManager({ title, endpoint, fields }) {
     setForm(initialForm);
   }, [initialForm]);
 
-  useEffect(() => {
-    void loadItems();
-  }, [endpoint]);
-
-  async function loadItems() {
+  const loadItems = useCallback(async () => {
     try {
       setIsLoading(true);
       setError("");
       const response = await apiRequest(`/${endpoint}`);
-      setItems(Array.isArray(response.data) ? response.data : []);
+
+      startTransition(() => {
+        setItems(Array.isArray(response.data) ? response.data : []);
+      });
     } catch (err) {
       setError(err.message || "Failed to load records.");
     } finally {
       setIsLoading(false);
     }
-  }
+  }, [endpoint]);
+
+  useEffect(() => {
+    void loadItems();
+  }, [loadItems]);
 
   function onChange(event) {
     const { name, value } = event.target;
@@ -59,6 +96,19 @@ export default function CrudManager({ title, endpoint, fields }) {
   function resetForm() {
     setForm(initialForm);
     setEditingId("");
+  }
+
+  function buildPayload() {
+    return fields.reduce((acc, field) => {
+      const value = form[field.name];
+
+      if (field.omitWhenEmpty && value === "") {
+        return acc;
+      }
+
+      acc[field.name] = value;
+      return acc;
+    }, {});
   }
 
   async function onSubmit(event) {
@@ -74,7 +124,8 @@ export default function CrudManager({ title, endpoint, fields }) {
 
       await apiRequest(path, {
         method,
-        body: JSON.stringify(form),
+        auth: requiresAuth,
+        body: JSON.stringify(buildPayload()),
       });
 
       setMessage(editingId ? `${title} updated successfully.` : `${title} added successfully.`);
@@ -89,7 +140,7 @@ export default function CrudManager({ title, endpoint, fields }) {
 
   function onEdit(item) {
     const nextForm = fields.reduce((acc, field) => {
-      acc[field.name] = normalizeForEdit(item[field.name], field.type);
+      acc[field.name] = normalizeForEdit(field, item);
       return acc;
     }, {});
 
@@ -107,7 +158,7 @@ export default function CrudManager({ title, endpoint, fields }) {
     try {
       setError("");
       setMessage("");
-      await apiRequest(`/${endpoint}/${id}`, { method: "DELETE" });
+      await apiRequest(`/${endpoint}/${id}`, { method: "DELETE", auth: requiresAuth });
       setMessage(`${title} deleted successfully.`);
 
       if (editingId === id) {
@@ -121,37 +172,46 @@ export default function CrudManager({ title, endpoint, fields }) {
   }
 
   return (
-    <div className="container">
+    <div className="crud-shell">
       <div className="section-card">
         <div className="section-header">
-          <h1>{title}</h1>
+          <div>
+            <p className="eyebrow">Protected Manager</p>
+            <h2>{editingId ? `Edit ${title}` : `Create ${title}`}</h2>
+          </div>
         </div>
 
+        {intro ? <p className="section-lead">{intro}</p> : null}
+
         <form className="crud-form" onSubmit={onSubmit}>
-          {fields.map((field) => (
-            <label key={field.name} className="field-group">
-              <span>{field.label}</span>
-              {field.type === "textarea" ? (
-                <textarea
-                  name={field.name}
-                  value={form[field.name] || ""}
-                  onChange={onChange}
-                  required={field.required}
-                  rows={4}
-                  placeholder={field.placeholder || ""}
-                />
-              ) : (
-                <input
-                  type={field.type || "text"}
-                  name={field.name}
-                  value={form[field.name] || ""}
-                  onChange={onChange}
-                  required={field.required}
-                  placeholder={field.placeholder || ""}
-                />
-              )}
-            </label>
-          ))}
+          {fields.map((field) => {
+            const required = getFieldRequired(field, Boolean(editingId));
+
+            return (
+              <label key={field.name} className="field-group">
+                <span>{field.label}</span>
+                {field.type === "textarea" ? (
+                  <textarea
+                    name={field.name}
+                    value={form[field.name] || ""}
+                    onChange={onChange}
+                    required={required}
+                    rows={4}
+                    placeholder={field.placeholder || ""}
+                  />
+                ) : (
+                  <input
+                    type={field.type || "text"}
+                    name={field.name}
+                    value={form[field.name] || ""}
+                    onChange={onChange}
+                    required={required}
+                    placeholder={field.placeholder || ""}
+                  />
+                )}
+              </label>
+            );
+          })}
 
           <div className="crud-actions">
             <button className="crud-btn primary" type="submit" disabled={isSaving}>
@@ -172,24 +232,27 @@ export default function CrudManager({ title, endpoint, fields }) {
 
       <div className="section-card">
         <div className="section-header">
-          <h2>{title} List</h2>
+          <div>
+            <p className="eyebrow">Current Data</p>
+            <h2>{listTitle || `${title} List`}</h2>
+          </div>
         </div>
 
         {isLoading ? <p>Loading...</p> : null}
-
-        {!isLoading && items.length === 0 ? <p>No records found.</p> : null}
+        {!isLoading && items.length === 0 ? <p className="empty-state">{emptyMessage}</p> : null}
 
         {!isLoading && items.length > 0 ? (
           <div className="record-list">
             {items.map((item) => (
               <article key={item.id} className="record-card">
                 <div className="record-content">
-                  {fields.map((field) => (
+                  {visibleFields.map((field) => (
                     <p key={field.name}>
-                      <strong>{field.label}:</strong> {item[field.name] || "-"}
+                      <strong>{field.label}:</strong> {getDisplayValue(field, item)}
                     </p>
                   ))}
                 </div>
+
                 <div className="record-actions">
                   <button className="crud-btn" type="button" onClick={() => onEdit(item)}>
                     Edit

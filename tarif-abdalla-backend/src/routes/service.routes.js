@@ -1,10 +1,11 @@
 const router = require("express").Router();
 const controller = require("../controllers/service.controller");
+const authenticate = require("../middleware/authenticate");
 
 router.get("/", controller.getServices);
 router.get("/:id", controller.getServiceById);
-router.post("/", controller.createService);
-router.put("/:id", controller.updateServiceById);
-router.delete("/:id", controller.deleteServiceById);
+router.post("/", authenticate, controller.createService);
+router.put("/:id", authenticate, controller.updateServiceById);
+router.delete("/:id", authenticate, controller.deleteServiceById);
 
 module.exports = router;

@@ -1,3 +1,4 @@
+// Extracts a readable message from common backend error shapes.
 const getErrorMessage = (errMsg) => {
   if (!errMsg) {
     return "Unknown server error";
@@ -17,6 +18,7 @@ const getErrorMessage = (errMsg) => {
   return errMsg.message || "Unknown server error";
 };
 
+// Sends a generic internal server error response.
 const handleError = (req, res) => {
   res.status(500).json({ error: "Server error" });
 };

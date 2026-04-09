@@ -10,6 +10,7 @@ import { useAuth } from "../context/AuthContext";
 
 const projectArtwork = [webApp, marketing, modelOne, modelTwo];
 
+// Formats project completion dates for human-readable display.
 function formatCompletion(value) {
   if (!value) {
     return "No completion date";
@@ -22,6 +23,7 @@ function formatCompletion(value) {
   }).format(new Date(value));
 }
 
+// Displays projects with sorting, filtering, and lightweight search UX.
 export default function Projects() {
   const { isAuthenticated } = useAuth();
   const [projects, setProjects] = useState([]);
@@ -33,6 +35,7 @@ export default function Projects() {
   useEffect(() => {
     let isMounted = true;
 
+    // Loads projects from the API for list rendering.
     async function loadProjects() {
       try {
         setIsLoading(true);
@@ -79,6 +82,7 @@ export default function Projects() {
 
   const latestProject = filteredProjects[0];
 
+  // Handles project search input with transition scheduling.
   function onSearchChange(event) {
     const nextValue = event.target.value;
     startTransition(() => {

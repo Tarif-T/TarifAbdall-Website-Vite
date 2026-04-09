@@ -1,0 +1,481 @@
+{
+    "title": "Tarif-website-test 4/9/2026 at 2:13:27 PM",
+    "selectorAttribute": "data-test",
+    "steps": [
+        {
+            "type": "setViewport",
+            "width": 860,
+            "height": 812,
+            "deviceScaleFactor": 1,
+            "isMobile": false,
+            "hasTouch": false,
+            "isLandscape": false
+        },
+        {
+            "type": "navigate",
+            "url": "http://localhost:5173/",
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:5173/",
+                    "title": "tarif-abdalla-frontend"
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "a.ghost-link"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/div/header/div/div/a[1]"
+                ],
+                [
+                    "pierce/a.ghost-link"
+                ],
+                [
+                    "aria/[role=\"banner\"]",
+                    "aria/Sign in"
+                ]
+            ],
+            "offsetY": 21.140625,
+            "offsetX": 31.2734375
+        },
+        {
+            "type": "change",
+            "value": "tarifelsir@gmail.com",
+            "selectors": [
+                [
+                    "label:nth-of-type(1) > input"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/div/main/div/section/div/form/label[1]/input"
+                ],
+                [
+                    "pierce/label:nth-of-type(1) > input"
+                ],
+                [
+                    "aria/Email"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "change",
+            "value": "tarif123",
+            "selectors": [
+                [
+                    "label:nth-of-type(2) > input"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/div/main/div/section/div/form/label[2]/input"
+                ],
+                [
+                    "pierce/label:nth-of-type(2) > input"
+                ],
+                [
+                    "aria/Password"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "label:nth-of-type(2) > input"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/div/main/div/section/div/form/label[2]/input"
+                ],
+                [
+                    "pierce/label:nth-of-type(2) > input"
+                ],
+                [
+                    "aria/Password"
+                ],
+                [
+                    "text/tarif123"
+                ]
+            ],
+            "offsetY": 37.5859375,
+            "offsetX": 119
+        },
+        {
+            "type": "change",
+            "value": "tarif1213",
+            "selectors": [
+                [
+                    "label:nth-of-type(2) > input"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/div/main/div/section/div/form/label[2]/input"
+                ],
+                [
+                    "pierce/label:nth-of-type(2) > input"
+                ],
+                [
+                    "aria/Password"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "button"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/div/main/div/section/div/form/button"
+                ],
+                [
+                    "pierce/button"
+                ],
+                [
+                    "aria/Sign in[role=\"button\"]"
+                ]
+            ],
+            "offsetY": 22.7890625,
+            "offsetX": 54
+        },
+        {
+            "type": "doubleClick",
+            "target": "main",
+            "selectors": [
+                [
+                    "label:nth-of-type(2) > input"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/div/main/div/section/div/form/label[2]/input"
+                ],
+                [
+                    "pierce/label:nth-of-type(2) > input"
+                ],
+                [
+                    "aria/Password"
+                ],
+                [
+                    "text/tarif1213"
+                ]
+            ],
+            "offsetY": 34.5859375,
+            "offsetX": 91
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "label:nth-of-type(2) > input"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/div/main/div/section/div/form/label[2]/input"
+                ],
+                [
+                    "pierce/label:nth-of-type(2) > input"
+                ],
+                [
+                    "aria/Password"
+                ],
+                [
+                    "text/tarif1213"
+                ]
+            ],
+            "offsetY": 34.5859375,
+            "offsetX": 91
+        },
+        {
+            "type": "change",
+            "value": "tarif123",
+            "selectors": [
+                [
+                    "label:nth-of-type(2) > input"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/div/main/div/section/div/form/label[2]/input"
+                ],
+                [
+                    "pierce/label:nth-of-type(2) > input"
+                ],
+                [
+                    "aria/Password"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "keyDown",
+            "target": "main",
+            "key": "Enter"
+        },
+        {
+            "type": "keyUp",
+            "key": "Enter",
+            "target": "main"
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "label:nth-of-type(1) > input"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/div/main/div/div/div[1]/form/label[1]/input"
+                ],
+                [
+                    "pierce/label:nth-of-type(1) > input"
+                ],
+                [
+                    "aria/Title"
+                ]
+            ],
+            "offsetY": 45.6171875,
+            "offsetX": 220.6015625
+        },
+        {
+            "type": "change",
+            "value": "New-test-project",
+            "selectors": [
+                [
+                    "label:nth-of-type(1) > input"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/div/main/div/div/div[1]/form/label[1]/input"
+                ],
+                [
+                    "pierce/label:nth-of-type(1) > input"
+                ],
+                [
+                    "aria/Title"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "label:nth-of-type(2) > input"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/div/main/div/div/div[1]/form/label[2]/input"
+                ],
+                [
+                    "pierce/label:nth-of-type(2) > input"
+                ],
+                [
+                    "aria/Completion Date"
+                ]
+            ],
+            "offsetY": 27.625,
+            "offsetX": 253.6015625
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "label:nth-of-type(2) > input"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/div/main/div/div/div[1]/form/label[2]/input"
+                ],
+                [
+                    "pierce/label:nth-of-type(2) > input"
+                ],
+                [
+                    "aria/Completion Date"
+                ]
+            ],
+            "offsetY": 32.625,
+            "offsetX": 742.6015625
+        },
+        {
+            "type": "change",
+            "value": "2026-04-09",
+            "selectors": [
+                [
+                    "label:nth-of-type(2) > input"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/div/main/div/div/div[1]/form/label[2]/input"
+                ],
+                [
+                    "pierce/label:nth-of-type(2) > input"
+                ],
+                [
+                    "aria/Completion Date"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "textarea"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/div/main/div/div/div[1]/form/label[3]/textarea"
+                ],
+                [
+                    "pierce/textarea"
+                ],
+                [
+                    "aria/Description"
+                ]
+            ],
+            "offsetY": 67.6328125,
+            "offsetX": 139.6015625
+        },
+        {
+            "type": "change",
+            "value": "This testing project",
+            "selectors": [
+                [
+                    "textarea"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/div/main/div/div/div[1]/form/label[3]/textarea"
+                ],
+                [
+                    "pierce/textarea"
+                ],
+                [
+                    "aria/Description"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "button.primary"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/div/main/div/div/div[1]/form/div/button[1]"
+                ],
+                [
+                    "pierce/button.primary"
+                ],
+                [
+                    "aria/Add"
+                ],
+                [
+                    "text/Add"
+                ]
+            ],
+            "offsetY": 18.6328125,
+            "offsetX": 37.6015625
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "article:nth-of-type(3) button.danger"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/div/main/div/div/div[2]/div[2]/article[3]/div[2]/button[2]"
+                ],
+                [
+                    "pierce/article:nth-of-type(3) button.danger"
+                ]
+            ],
+            "offsetY": 44.2109375,
+            "offsetX": 52.546875
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "header button"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/div/header/div/div/button"
+                ],
+                [
+                    "pierce/header button"
+                ],
+                [
+                    "aria/[role=\"banner\"]",
+                    "aria/Sign out"
+                ]
+            ],
+            "offsetY": 16.140625,
+            "offsetX": 46.453125
+        },
+        {
+            "type": "change",
+            "value": "tarifelsir@gmail.com",
+            "selectors": [
+                [
+                    "label:nth-of-type(1) > input"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/div/main/div/section/div/form/label[1]/input"
+                ],
+                [
+                    "pierce/label:nth-of-type(1) > input"
+                ],
+                [
+                    "aria/Email"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "change",
+            "value": "tarif123",
+            "selectors": [
+                [
+                    "label:nth-of-type(2) > input"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/div/main/div/section/div/form/label[2]/input"
+                ],
+                [
+                    "pierce/label:nth-of-type(2) > input"
+                ],
+                [
+                    "aria/Password"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "nav > a:nth-of-type(1)"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/div/header/div/nav/a[1]"
+                ],
+                [
+                    "pierce/nav > a:nth-of-type(1)"
+                ],
+                [
+                    "aria/Home"
+                ],
+                [
+                    "text/Home"
+                ]
+            ],
+            "offsetY": 19.6015625,
+            "offsetX": 25.78125
+        }
+    ]
+}

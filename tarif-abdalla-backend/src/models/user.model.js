@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// Defines persisted user accounts for authentication and dashboard access.
 const userSchema = new mongoose.Schema(
   {
     firstname: { type: String, required: true, trim: true },

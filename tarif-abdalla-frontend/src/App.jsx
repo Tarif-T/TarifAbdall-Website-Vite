@@ -21,10 +21,12 @@ const publicLinks = [
   { to: "/contact", label: "Contact" },
 ];
 
+// Resolves the nav link class based on route active state.
 function getNavLinkClass({ isActive }) {
   return isActive ? "nav-link active" : "nav-link";
 }
 
+// Renders the app shell, routes, and global navigation/footer.
 export default function App() {
   const { isAuthenticated, user, signOut } = useAuth();
 

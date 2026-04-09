@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// Connects Mongoose using the configured primary or fallback URI.
 const connectDatabase = async () => {
   const uri = process.env.MONGODB_URI || process.env.MONGODB_URI_FALLBACK;
 

@@ -1,7 +1,9 @@
+/* eslint-disable react/prop-types */
 import { startTransition, useCallback, useEffect, useMemo, useState } from "react";
 
 import { apiRequest } from "../api";
 
+// Builds the default form object from field configuration.
 function buildInitialForm(fields) {
   return fields.reduce((acc, field) => {
     acc[field.name] = field.defaultValue ?? "";
@@ -9,6 +11,7 @@ function buildInitialForm(fields) {
   }, {});
 }
 
+// Maps an existing record value into an editable form value.
 function normalizeForEdit(field, item) {
   if (field.clearOnEdit) {
     return "";
@@ -27,6 +30,7 @@ function normalizeForEdit(field, item) {
   return String(value);
 }
 
+// Resolves required state based on create or edit mode.
 function getFieldRequired(field, isEditing) {
   if (isEditing) {
     return field.requiredOnEdit ?? field.required ?? false;
@@ -35,6 +39,7 @@ function getFieldRequired(field, isEditing) {
   return field.requiredOnCreate ?? field.required ?? false;
 }
 
+// Returns a display-safe value for list rendering.
 function getDisplayValue(field, item) {
   const rawValue = item[field.name];
 
@@ -45,6 +50,7 @@ function getDisplayValue(field, item) {
   return rawValue || "-";
 }
 
+// Reusable CRUD UI for protected resources.
 export default function CrudManager({
   title,
   endpoint,
@@ -68,6 +74,7 @@ export default function CrudManager({
     setForm(initialForm);
   }, [initialForm]);
 
+  // Fetches records from the API and updates the visible list.
   const loadItems = useCallback(async () => {
     try {
       setIsLoading(true);
@@ -88,16 +95,19 @@ export default function CrudManager({
     void loadItems();
   }, [loadItems]);
 
+  // Handles controlled input updates.
   function onChange(event) {
     const { name, value } = event.target;
     setForm((current) => ({ ...current, [name]: value }));
   }
 
+  // Resets the form and exits edit mode.
   function resetForm() {
     setForm(initialForm);
     setEditingId("");
   }
 
+  // Builds a request payload while honoring field omission rules.
   function buildPayload() {
     return fields.reduce((acc, field) => {
       const value = form[field.name];
@@ -111,6 +121,7 @@ export default function CrudManager({
     }, {});
   }
 
+  // Creates or updates a record based on current mode.
   async function onSubmit(event) {
     event.preventDefault();
 
@@ -138,6 +149,7 @@ export default function CrudManager({
     }
   }
 
+  // Loads a record into the form for editing.
   function onEdit(item) {
     const nextForm = fields.reduce((acc, field) => {
       acc[field.name] = normalizeForEdit(field, item);
@@ -150,8 +162,9 @@ export default function CrudManager({
     setError("");
   }
 
+  // Deletes a record after user confirmation.
   async function onDelete(id) {
-    if (!window.confirm("Delete this record?")) {
+    if (!globalThis.confirm("Delete this record?")) {
       return;
     }
 
@@ -169,6 +182,16 @@ export default function CrudManager({
     } catch (err) {
       setError(err.message || "Failed to delete record.");
     }
+  }
+
+  let submitLabel = "Add";
+
+  if (editingId) {
+    submitLabel = "Update";
+  }
+
+  if (isSaving) {
+    submitLabel = "Saving...";
   }
 
   return (
@@ -215,7 +238,7 @@ export default function CrudManager({
 
           <div className="crud-actions">
             <button className="crud-btn primary" type="submit" disabled={isSaving}>
-              {isSaving ? "Saving..." : editingId ? "Update" : "Add"}
+              {submitLabel}
             </button>
             <button className="crud-btn" type="button" onClick={resetForm} disabled={isSaving}>
               Clear

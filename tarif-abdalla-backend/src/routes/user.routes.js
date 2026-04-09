@@ -2,6 +2,7 @@ const router = require("express").Router();
 const controller = require("../controllers/user.controller");
 const authenticate = require("../middleware/authenticate");
 
+// User routes for account CRUD and authentication actions.
 router.get("/", controller.getUsers);
 router.post("/signin", controller.signInUser);
 router.post("/signup", controller.createUser);

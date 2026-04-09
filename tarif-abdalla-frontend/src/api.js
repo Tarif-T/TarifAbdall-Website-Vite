@@ -1,39 +1,44 @@
 const API_BASE = (import.meta.env.VITE_API_BASE_URL || "http://localhost:3000/api").replace(/\/$/, "");
 const AUTH_STORAGE_KEY = "tarif-portfolio-auth";
 
+// Reads the persisted auth session from localStorage.
 export function readStoredSession() {
-  if (typeof window === "undefined") {
+  if (globalThis.window === undefined) {
     return null;
   }
 
   try {
-    const value = window.localStorage.getItem(AUTH_STORAGE_KEY);
+    const value = globalThis.localStorage.getItem(AUTH_STORAGE_KEY);
     return value ? JSON.parse(value) : null;
   } catch {
     return null;
   }
 }
 
+// Writes the auth session to localStorage.
 export function writeStoredSession(session) {
-  if (typeof window === "undefined") {
+  if (globalThis.window === undefined) {
     return;
   }
 
-  window.localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(session));
+  globalThis.localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(session));
 }
 
+// Clears the persisted auth session.
 export function clearStoredSession() {
-  if (typeof window === "undefined") {
+  if (globalThis.window === undefined) {
     return;
   }
 
-  window.localStorage.removeItem(AUTH_STORAGE_KEY);
+  globalThis.localStorage.removeItem(AUTH_STORAGE_KEY);
 }
 
+// Returns the currently stored access token, if available.
 export function getStoredToken() {
   return readStoredSession()?.token || "";
 }
 
+// Sends an API request with optional auth and normalized error handling.
 export async function apiRequest(path, options = {}) {
   const normalizedPath = path.startsWith("/") ? path : `/${path}`;
   const { auth = false, token = getStoredToken(), headers = {}, body, ...fetchOptions } = options;

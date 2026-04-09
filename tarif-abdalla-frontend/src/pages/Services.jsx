@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { apiRequest } from "../api";
 import { useAuth } from "../context/AuthContext";
 
+// Lists service offerings loaded from the backend API.
 export default function Services() {
   const { isAuthenticated } = useAuth();
   const [services, setServices] = useState([]);
@@ -13,6 +14,7 @@ export default function Services() {
   useEffect(() => {
     let isMounted = true;
 
+    // Loads services for the public services page.
     async function loadServices() {
       try {
         setIsLoading(true);

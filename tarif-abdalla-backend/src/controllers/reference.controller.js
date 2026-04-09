@@ -2,6 +2,7 @@ const createError = require("http-errors");
 const Reference = require("../models/reference.model");
 const { isValidObjectId, mapToPublicIds, toPublicId } = require("../utils/to-public-id");
 
+// Creates a new reference record.
 const createReference = async (req, res, next) => {
   try {
     const reference = await Reference.create(req.body);
@@ -16,6 +17,7 @@ const createReference = async (req, res, next) => {
   }
 };
 
+// Returns all references sorted by creation date.
 const getReferences = async (req, res, next) => {
   try {
     const references = await Reference.find().sort({ createdAt: 1 });
@@ -30,6 +32,7 @@ const getReferences = async (req, res, next) => {
   }
 };
 
+// Returns a single reference by id.
 const getReferenceById = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -54,6 +57,7 @@ const getReferenceById = async (req, res, next) => {
   }
 };
 
+// Updates a single reference by id.
 const updateReferenceById = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -80,6 +84,7 @@ const updateReferenceById = async (req, res, next) => {
   }
 };
 
+// Deletes a single reference by id.
 const deleteReferenceById = async (req, res, next) => {
   try {
     const { id } = req.params;

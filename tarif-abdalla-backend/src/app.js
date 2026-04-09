@@ -12,10 +12,12 @@ app.use(morgan("dev"));
 app.use(cors());
 app.use(express.json());
 
+// Health-style root route for quick API availability checks.
 app.get("/", (req, res) => {
   res.json({ success: true, message: "Welcome to Tarif Abdalla's Portfolio Website Backend API" });
 });
 
+// Base API route that documents available resource endpoints.
 app.get("/api", (req, res) => {
   res.json({
     success: true,
@@ -34,6 +36,7 @@ app.get("/api", (req, res) => {
 
 app.use("/api", apiRoutes);
 
+// Converts unknown routes into a standard 404 error.
 app.use((req, res, next) => {
   next(createError(404, "Route not found"));
 });

@@ -7,6 +7,7 @@ const fields = [
   { name: "password", label: "Password", type: "password", required: true, placeholder: "Minimum 6 chars" },
 ];
 
+// Wraps CrudManager with field config for user records.
 export default function Users() {
   return <CrudManager title="Users" endpoint="users" fields={fields} />;
 }

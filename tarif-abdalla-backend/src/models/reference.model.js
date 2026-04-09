@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// Defines professional reference/contact records for the contact section.
 const referenceSchema = new mongoose.Schema(
   {
     firstname: { type: String, required: true, trim: true },

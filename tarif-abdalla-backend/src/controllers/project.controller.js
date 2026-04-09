@@ -2,6 +2,7 @@ const createError = require("http-errors");
 const Project = require("../models/project.model");
 const { isValidObjectId, mapToPublicIds, toPublicId } = require("../utils/to-public-id");
 
+// Creates a new project record.
 const createProject = async (req, res, next) => {
   try {
     const project = await Project.create(req.body);
@@ -16,6 +17,7 @@ const createProject = async (req, res, next) => {
   }
 };
 
+// Returns all projects sorted by creation date.
 const getProjects = async (req, res, next) => {
   try {
     const projects = await Project.find().sort({ createdAt: 1 });
@@ -30,6 +32,7 @@ const getProjects = async (req, res, next) => {
   }
 };
 
+// Returns a single project by id.
 const getProjectById = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -54,6 +57,7 @@ const getProjectById = async (req, res, next) => {
   }
 };
 
+// Updates a single project by id.
 const updateProjectById = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -80,6 +84,7 @@ const updateProjectById = async (req, res, next) => {
   }
 };
 
+// Deletes a single project by id.
 const deleteProjectById = async (req, res, next) => {
   try {
     const { id } = req.params;

@@ -4,6 +4,7 @@ import CrudManager from "../components/CrudManager";
 import { apiRequest } from "../api";
 import { useAuth } from "../context/AuthContext";
 
+// Formats dates for dashboard list and summary display.
 function formatCompletion(value) {
   if (!value) {
     return "-";
@@ -113,6 +114,7 @@ const dashboardSections = [
   },
 ];
 
+// Renders protected admin controls and CRUD section switching.
 export default function Dashboard() {
   const { user, signOut } = useAuth();
   const [activeSectionId, setActiveSectionId] = useState("projects");
@@ -132,6 +134,7 @@ export default function Dashboard() {
   useEffect(() => {
     let isMounted = true;
 
+    // Loads record counts for dashboard summary cards.
     async function loadCounts() {
       try {
         setStatsError("");

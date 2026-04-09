@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { apiRequest } from "../api";
 import { useAuth } from "../context/AuthContext";
 
+// Shows direct contact info and backend-managed professional references.
 export default function Contact() {
   const { isAuthenticated } = useAuth();
   const [references, setReferences] = useState([]);
@@ -13,6 +14,7 @@ export default function Contact() {
   useEffect(() => {
     let isMounted = true;
 
+    // Loads published references for the contact section.
     async function loadReferences() {
       try {
         setIsLoading(true);

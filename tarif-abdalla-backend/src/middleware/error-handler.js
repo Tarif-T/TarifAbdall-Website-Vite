@@ -1,5 +1,6 @@
 const createError = require("http-errors");
 
+// Sends normalized API error payloads with optional stack traces in development.
 const errorHandler = (err, req, res, next) => {
   const status = err.status || 500;
 

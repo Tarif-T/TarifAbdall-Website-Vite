@@ -4,6 +4,7 @@ const projectRoutes = require("./project.routes");
 const serviceRoutes = require("./service.routes");
 const userRoutes = require("./user.routes");
 
+// Composes all API resource routers under the /api prefix.
 const router = require("express").Router();
 
 router.use("/references", referenceRoutes);

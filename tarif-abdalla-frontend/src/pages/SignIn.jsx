@@ -4,6 +4,7 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { apiRequest } from "../api";
 import { useAuth } from "../context/AuthContext";
 
+// Authenticates an existing user and redirects to protected routes.
 export default function SignIn() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -26,11 +27,13 @@ export default function SignIn() {
     }
   }, [location.state]);
 
+  // Updates controlled sign-in form values.
   function onChange(event) {
     const { name, value } = event.target;
     setForm((current) => ({ ...current, [name]: value }));
   }
 
+  // Submits sign-in credentials and stores returned session data.
   async function onSubmit(event) {
     event.preventDefault();
 

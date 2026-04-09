@@ -3,20 +3,20 @@
 .page-main { flex: 1; padding-top: 1.75rem; }
 .container { width: min(1160px, calc(100% - 2rem)); margin: 0 auto; }
 :root {
-  --ink: #102c3f;
-  --ink-soft: rgba(16, 44, 63, 0.74);
-  --paper: rgba(255, 250, 244, 0.78);
-  --paper-strong: rgba(255, 248, 240, 0.92);
-  --teal: #17736f;
-  --teal-deep: #0f4f5c;
-  --coral: #d86d47;
-  --gold: #d8a04d;
+  --ink: #0d1b3d;
+  --ink-soft: rgba(23, 49, 103, 0.74);
+  --paper: rgba(236, 246, 255, 0.82);
+  --paper-strong: rgba(245, 251, 255, 0.93);
+  --teal: #00b8d4;
+  --teal-deep: #1d4dff;
+  --coral: #ff4f9b;
+  --gold: #ffb84d;
 }
 
 /* Global sticky header used across the whole website */
 .top-nav {
-  position: sticky; inset: 0 0 auto 0; z-index: 1000; background: rgba(248, 242, 234, 0.78);
-  backdrop-filter: blur(18px); border-bottom: 1px solid rgba(16, 39, 56, 0.08);
+  position: sticky; inset: 0 0 auto 0; z-index: 1000; background: rgba(230, 242, 255, 0.76);
+  backdrop-filter: blur(18px); border-bottom: 1px solid rgba(30, 87, 178, 0.15);
 }
 .nav-inner {
   width: min(1240px, calc(100% - 2rem)); margin: 0 auto; min-height: 5rem; display: grid;
@@ -26,7 +26,7 @@
 .site-brand-link { display: inline-flex; align-items: center; gap: 0.9rem; }
 .site-logo {
   width: 3.4rem; height: 3.4rem; object-fit: cover; border-radius: 1rem;
-  background: linear-gradient(135deg, #f6efe6, #d7ebe6); box-shadow: 0 16px 32px rgba(13, 35, 52, 0.14);
+  background: linear-gradient(135deg, #d8ecff, #d8fff5); box-shadow: 0 16px 32px rgba(12, 32, 71, 0.2);
 }
 .brand-copy { display: flex; flex-direction: column; gap: 0.1rem; }
 .brand-title { font-size: 1rem; font-weight: 700; }
@@ -40,35 +40,35 @@
   transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease, border-color 180ms ease;
 }
 .nav-link, .ghost-link {
-  padding: 0.56rem 0.82rem; border-radius: 999px; color: rgba(18, 48, 68, 0.78); font-weight: 500; font-size: 0.94rem;
+  padding: 0.56rem 0.82rem; border-radius: 999px; color: rgba(13, 27, 61, 0.84); font-weight: 600; font-size: 0.94rem;
 }
 .nav-link:hover, .ghost-link:hover, .ghost-button:hover, .dashboard-tab:hover, .crud-btn:hover, .cta:hover { transform: translateY(-1px); }
 .nav-link.active, .ghost-link.active {
-  background: linear-gradient(135deg, rgba(23, 115, 111, 0.14), rgba(216, 109, 71, 0.12));
-  color: #123044;
+  background: linear-gradient(135deg, rgba(0, 184, 212, 0.2), rgba(255, 79, 155, 0.16));
+  color: #11234e;
 }
 .nav-status {
-  padding: 0.4rem 0.8rem; border-radius: 999px; background: rgba(23, 83, 97, 0.1);
-  color: #175361; font-size: 0.88rem; font-weight: 600;
+  padding: 0.4rem 0.8rem; border-radius: 999px; background: rgba(29, 77, 255, 0.84);
+  color: #f3f8ff; font-size: 0.88rem; font-weight: 700;
 }
 .ghost-button, .crud-btn {
-  border: 1px solid rgba(18, 48, 68, 0.14); background: rgba(255, 255, 255, 0.7); color: #123044;
+  border: 1px solid rgba(22, 67, 154, 0.2); background: rgba(247, 252, 255, 0.84); color: #123044;
   border-radius: 999px; padding: 0.68rem 0.92rem; cursor: pointer;
 }
 .link-button, .cta { display: inline-flex; align-items: center; justify-content: center; }
 .cta {
   gap: 0.45rem; border: none; border-radius: 999px; padding: 0.72rem 1.02rem; color: #f9faf7;
   font-size: 0.95rem; font-weight: 600;
-  background: linear-gradient(135deg, var(--coral), var(--teal-deep));
-  box-shadow: 0 16px 32px rgba(15, 66, 86, 0.2);
+  background: var(--teal-deep);
+  box-shadow: 0 16px 32px rgba(13, 53, 151, 0.28);
 }
 .cta.small { padding: 0.58rem 0.88rem; font-size: 0.9rem; }
 
 /* Shared card surfaces reused by hero, sections, auth screens, and dashboard cards */
 .hero-panel, .section-card, .portfolio-card, .auth-panel, .record-card {
   border: 1px solid rgba(18, 48, 68, 0.08);
-  background: linear-gradient(180deg, rgba(255, 252, 247, 0.9), rgba(249, 244, 238, 0.72));
-  box-shadow: 0 24px 60px rgba(18, 48, 68, 0.08);
+  background: linear-gradient(180deg, rgba(247, 252, 255, 0.92), rgba(234, 244, 255, 0.78));
+  box-shadow: 0 24px 60px rgba(15, 45, 106, 0.12);
 }
 
 /* Home page hero layout: intro text on the left, creative visual panel on the right */
@@ -88,11 +88,11 @@
 }
 .hero-panel::before {
   width: 18rem; height: 18rem; right: -4rem; top: -4rem;
-  background: radial-gradient(circle, rgba(23, 115, 111, 0.18), transparent 70%);
+  background: radial-gradient(circle, rgba(29, 77, 255, 0.2), transparent 70%);
 }
 .hero-panel::after {
   width: 16rem; height: 16rem; left: -5rem; bottom: -5rem;
-  background: radial-gradient(circle, rgba(216, 109, 71, 0.18), transparent 72%);
+  background: radial-gradient(circle, rgba(255, 79, 155, 0.2), transparent 72%);
 }
 .section-card { border-radius: 1.7rem; padding: 1.65rem; margin-bottom: 1rem; }
 .portfolio-card { border-radius: 1.55rem; overflow: hidden; display: grid; }
@@ -107,13 +107,13 @@
 /* Hero title, intro paragraph, CTA row, and small topic chips */
 .hero-title { max-width: 14ch; font-size: clamp(2.2rem, 4.3vw, 3.9rem); line-height: 1.02; margin-bottom: 1rem; }
 .hero-summary, .section-lead, .footer-copy { max-width: 62ch; color: var(--ink-soft); }
-.hero-summary { font-size: 1.02rem; }
+.hero-summary { font-size: clamp(1rem, 2.6vw, 1.22rem); }
 .hero-actions { margin: 1.35rem 0 1.1rem; gap: 0.6rem; align-items: center; }
 .tag-chip, .skill-pill {
   border-radius: 999px; padding: 0.62rem 0.9rem;
-  background: linear-gradient(135deg, rgba(23, 115, 111, 0.12), rgba(216, 109, 71, 0.08));
-  border: 1px solid rgba(16, 44, 63, 0.08);
-  color: #175361; font-size: 0.92rem; font-weight: 600;
+  background: linear-gradient(135deg, rgba(0, 184, 212, 0.14), rgba(255, 79, 155, 0.1));
+  border: 1px solid rgba(24, 62, 141, 0.12);
+  color: #08214b; font-size: 0.92rem; font-weight: 700;
 }
 
 /* Reusable grid helpers used by hero internals, lists, forms, and page sections */
@@ -124,57 +124,27 @@
 .visual-stage {
   min-height: 34rem;
   position: relative;
+  border-radius: 1.75rem;
   overflow: hidden;
-  border-radius: 1.9rem;
-  padding: 1.1rem;
-  background:
-    linear-gradient(140deg, rgba(8, 29, 41, 0.98), rgba(18, 82, 88, 0.92)),
-    linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 30px 60px rgba(10, 31, 43, 0.18);
-}
-
-/* Transparent overlay inside the hero stage: glow spots plus a subtle grid texture */
-.visual-stage::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 20% 16%, rgba(216, 109, 71, 0.38), transparent 22%),
-    radial-gradient(circle at 82% 22%, rgba(216, 160, 77, 0.3), transparent 18%),
-    linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(255,255,255,0.05) 1px, transparent 1px);
-  background-size: auto, auto, 3.8rem 3.8rem, 3.8rem 3.8rem;
-  opacity: 0.55;
-  pointer-events: none;
-}
-
-/* Small floating label pinned to the top-left of the hero stage */
-.stage-label {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  z-index: 2;
-  padding: 0.45rem 0.72rem;
-  border-radius: 999px;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  color: rgba(255, 248, 240, 0.92);
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 30px 60px rgba(8, 24, 66, 0.38);
 }
 
 /* Portrait container inside the hero stage */
 .portrait-frame {
-  position: relative;
-  z-index: 1;
+  position: absolute; inset: 0; margin: auto; width: 27rem; height: 35rem;
   overflow: hidden;
-  border-radius: 2rem;
-  background: linear-gradient(145deg, #d9ece7, #f7ede0);
-  width: min(72%, 23rem);
-  margin: 4.2rem auto 0 0.3rem;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 24px 48px rgba(7, 22, 31, 0.22);
+  border-radius: 1.5rem;
+  box-shadow: 0 24px 48px rgba(7, 22, 31, 0.18);
+}
+
+.portrait-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--portrait-bg-image) center / cover no-repeat;
+  opacity: 0.55;
+  z-index: 0;
+  pointer-events: none;
 }
 
 /* Soft dark fade laid over the portrait image for depth */
@@ -185,100 +155,19 @@
   background: linear-gradient(180deg, rgba(7, 25, 35, 0), rgba(7, 25, 35, 0.12));
   pointer-events: none;
 }
-.avatar { width: 100%; aspect-ratio: 1 / 1.08; object-fit: cover; }
-
-/* Small label floating on top of the portrait image */
-.portrait-badge {
-  position: absolute;
-  left: 1rem;
-  bottom: 1rem;
-  z-index: 2;
-  padding: 0.48rem 0.8rem;
-  border-radius: 999px;
-  background: rgba(255, 248, 240, 0.88);
-  color: var(--ink);
-  font-size: 0.82rem;
-  font-weight: 700;
-}
-
-/* Glass cards at the top-right of the hero stage */
-.signal-stack {
-  position: absolute;
-  top: 4.35rem;
-  right: 1rem;
-  width: min(15rem, 42%);
-  z-index: 2;
-  display: grid;
-  gap: 0.75rem;
-}
-
-/* Individual glass card used in the hero "Signal / Story / Systems" stack */
-.signal-card {
-  padding: 0.9rem 0.95rem;
-  border-radius: 1.2rem;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(12px);
-  color: rgba(255, 250, 244, 0.94);
-}
-.signal-card strong {
-  display: block;
-  margin-bottom: 0.28rem;
-  font-size: 0.88rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.signal-card span { color: rgba(255, 248, 240, 0.72); font-size: 0.9rem; }
-
-/* Decorative equalizer bars at the bottom of the hero stage */
-.signal-wave {
-  position: absolute;
-  left: 1rem;
-  right: 1rem;
-  bottom: 1rem;
-  z-index: 1;
-  display: flex;
-  align-items: end;
-  gap: 0.45rem;
-  height: 7rem;
-}
-.signal-wave span {
-  flex: 1;
-  border-radius: 999px 999px 0 0;
-  background: linear-gradient(180deg, rgba(216, 160, 77, 0.92), rgba(216, 109, 71, 0.72));
-  opacity: 0.9;
-}
-.signal-wave span:nth-child(2n) {
-  background: linear-gradient(180deg, rgba(77, 206, 195, 0.92), rgba(23, 115, 111, 0.72));
-}
+.avatar { position: relative; z-index: 1; width: 100%; height: auto; aspect-ratio: 1 / 1.08; object-fit: cover; display: block; }
 
 /* Shared soft card styling for hero info, insight cards, and about timeline cards */
-.hero-aside, .summary-card, .insight-card, .timeline-card {
+.summary-card, .insight-card, .timeline-card {
   border-radius: 1.35rem; padding: 1.1rem 1.15rem; background: rgba(247, 242, 235, 0.88);
   border: 1px solid rgba(18, 48, 68, 0.08);
 }
-/* Glass info panel inside the hero stage above the equalizer bars */
-.hero-aside {
-  position: absolute;
-  left: 1rem;
-  right: 1rem;
-  bottom: 8.3rem;
-  z-index: 2;
-  max-width: 20rem;
-  background: rgba(255, 249, 242, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  backdrop-filter: blur(10px);
-  color: rgba(255, 248, 240, 0.94);
-}
-.hero-aside-title { margin-bottom: 1rem; font-weight: 700; }
-.metric-item { display: grid; gap: 0.2rem; }
-.metric-item span { color: rgba(255, 248, 240, 0.74); }
 .summary-label, .auth-footer, .footer-row { color: rgba(18, 48, 68, 0.72); }
 
 /* Repeating page grids used for insight cards, stats, content cards, and footer columns */
 .insight-grid, .summary-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 1.25rem; }
 .summary-card, .insight-card, .timeline-card, .portfolio-card:not(.project-card) {
-  background: linear-gradient(180deg, rgba(255, 250, 244, 0.94), rgba(247, 240, 233, 0.82));
+  background: linear-gradient(180deg, rgba(246, 252, 255, 0.95), rgba(233, 244, 255, 0.84));
 }
 .summary-card { display: grid; gap: 0.3rem; }
 .summary-number { font-size: clamp(1.2rem, 3vw, 2rem); font-weight: 700; overflow-wrap: anywhere; }
@@ -299,8 +188,8 @@
   border-radius: 1.5rem;
   padding: 1.15rem;
   color: rgba(255, 248, 240, 0.92);
-  background: linear-gradient(145deg, rgba(16, 44, 63, 0.96), rgba(23, 115, 111, 0.9));
-  box-shadow: 0 24px 48px rgba(12, 36, 50, 0.14);
+  background: linear-gradient(145deg, rgba(9, 20, 56, 0.97), rgba(0, 91, 181, 0.9));
+  box-shadow: 0 24px 48px rgba(8, 26, 71, 0.28);
 }
 /* Small principle cards inside the About accent area */
 .principle-grid {
@@ -327,11 +216,9 @@
 .skill-panel {
   border-radius: 1.45rem;
   padding: 1.15rem;
-  background: linear-gradient(180deg, rgba(250, 244, 237, 0.95), rgba(246, 238, 230, 0.78));
+  background: transparent;
   border: 1px solid rgba(18, 48, 68, 0.08);
 }
-/* Public content grid used by projects, services, references, and contact cards */
-.content-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
 .project-art { aspect-ratio: 16 / 10; overflow: hidden; }
 .project-art img { width: 100%; height: 100%; object-fit: cover; }
 .project-card-body, .portfolio-card:not(.project-card) { padding: 1.2rem; gap: 0.65rem; display: grid; }
@@ -343,8 +230,12 @@
 .field-group { display: grid; gap: 0.45rem; }
 .field-group span { font-weight: 600; }
 .field-group input, .field-group textarea {
-  width: 100%; border: 1px solid rgba(18, 48, 68, 0.15); border-radius: 1rem; padding: 0.9rem 1rem;
-  background: rgba(255, 255, 255, 0.86); color: #123044;
+  width: 100%;
+  border: 1px solid rgba(18, 48, 68, 0.15);
+  border-radius: 1rem;
+  padding: 0.9rem 1rem;
+  background: rgba(255, 255, 255, 0.86);
+  color: #123044;
 }
 .field-group textarea { resize: vertical; min-height: 8rem; }
 .auth-submit { width: fit-content; }
@@ -354,11 +245,11 @@
   background: rgba(255, 255, 255, 0.72); color: #123044; cursor: pointer;
 }
 .dashboard-tab.active {
-  background: linear-gradient(135deg, #175361, #0f6c6b); color: #f9faf7; box-shadow: 0 16px 32px rgba(15, 66, 86, 0.16);
+  background: linear-gradient(135deg, var(--teal), var(--teal-deep)); color: #f9faf7; box-shadow: 0 16px 32px rgba(13, 53, 151, 0.24);
 }
 /* Dashboard action buttons and status messages */
-.crud-btn.primary { background: linear-gradient(135deg, #175361, #0f6c6b); color: #f9faf7; border-color: transparent; }
-.crud-btn.danger { background: linear-gradient(135deg, #c86a3c, #a83e32); color: #f9faf7; border-color: transparent; }
+.crud-btn.primary { background: linear-gradient(135deg, var(--teal), var(--teal-deep)); color: #f9faf7; border-color: transparent; }
+.crud-btn.danger { background: linear-gradient(135deg, #d61b78, #7b1348); color: #ffffff; border-color: transparent; }
 .record-content p { margin-bottom: 0.45rem; }
 .message { margin-top: 1rem; padding: 0.9rem 1rem; border-radius: 1rem; }
 .message.success { background: rgba(36, 128, 104, 0.12); border: 1px solid rgba(36, 128, 104, 0.24); }
@@ -383,32 +274,45 @@
     gap: 1rem;
   }
   .portrait-frame {
-    width: min(100%, 26rem);
-    margin: 3.2rem auto 0;
-  }
-  .signal-stack,
-  .hero-aside,
-  .signal-wave {
     position: relative;
-    top: auto;
-    right: auto;
-    left: auto;
-    bottom: auto;
-    width: auto;
-    max-width: none;
+    inset: auto;
+    width: min(100%, 26rem);
+    height: auto;
+    aspect-ratio: 4 / 5;
+    margin: 1.4rem auto 0;
   }
-  .signal-stack { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 /* Mobile layout: single-column controls, full-width hero buttons, simpler hero stage stacking */
 @media (max-width: 720px) {
   .container { width: min(100% - 1rem, 1160px); }
-  .hero-panel, .section-card, .auth-panel { padding: 1.25rem; }
+  .hero-panel, .section-card, .auth-panel { padding: 1rem; }
+  .hero-title { font-size: clamp(1.75rem, 9vw, 2.35rem); line-height: 1.06; }
+  .hero-summary { font-size: clamp(0.98rem, 4.1vw, 1.08rem); }
   .dual-inputs, .record-card { grid-template-columns: 1fr; }
-  .hero-actions { align-items: stretch; }
+  .hero-actions { margin: 1rem 0 0.8rem; align-items: stretch; }
   .hero-actions .cta, .hero-actions .ghost-button { width: 100%; }
-  .signal-stack,
   .principle-grid { grid-template-columns: 1fr; }
-  .visual-stage { padding: 0.85rem; }
+  .hero-panel::before,
+  .hero-panel::after { display: none; }
+  .visual-stage {
+    padding: 0.7rem;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 14px 28px rgba(8, 24, 66, 0.24);
+  }
+  .portrait-frame {
+    width: min(100%, 22rem);
+    max-width: 22rem;
+    aspect-ratio: 4 / 5;
+    margin: 0.7rem auto 0;
+    border-radius: 1.2rem;
+  }
+  .portrait-frame::before { opacity: 0.38; }
   .nav-status { display: none; }
+}
+
+@media (max-width: 400px) {
+  .hero-title { font-size: clamp(1.5rem, 8vw, 1.85rem); }
+  .hero-actions .cta,
+  .hero-actions .ghost-button { padding: 0.62rem 0.78rem; font-size: 0.9rem; }
+  .portrait-frame { border-radius: 1rem; }
 }

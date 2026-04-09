@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// Defines portfolio project entries shown on the public site.
 const projectSchema = new mongoose.Schema(
   {
     title: { type: String, required: true, trim: true },

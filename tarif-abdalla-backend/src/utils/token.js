@@ -1,24 +1,29 @@
-const crypto = require("crypto");
+const crypto = require("node:crypto");
 
 const DEFAULT_TOKEN_TTL_SECONDS = 60 * 60 * 24 * 7;
 
+// Resolves the signing secret from environment variables.
 function getTokenSecret() {
   return process.env.AUTH_TOKEN_SECRET || process.env.JWT_SECRET || "change-this-development-secret";
 }
 
+// Encodes a string or object into base64url format.
 function base64UrlEncode(value) {
   const input = typeof value === "string" ? value : JSON.stringify(value);
   return Buffer.from(input).toString("base64url");
 }
 
+// Decodes a base64url value into UTF-8 text.
 function base64UrlDecode(value) {
   return Buffer.from(value, "base64url").toString("utf8");
 }
 
+// Computes HMAC-SHA256 signature for token segments.
 function signSegment(value) {
   return crypto.createHmac("sha256", getTokenSecret()).update(value).digest("base64url");
 }
 
+// Creates a JWT-like auth token with issued and expiry timestamps.
 function createAuthToken(payload, expiresInSeconds = DEFAULT_TOKEN_TTL_SECONDS) {
   const now = Math.floor(Date.now() / 1000);
 
@@ -38,6 +43,7 @@ function createAuthToken(payload, expiresInSeconds = DEFAULT_TOKEN_TTL_SECONDS) 
   return `${header}.${body}.${signature}`;
 }
 
+// Verifies token structure, signature, and expiration date.
 function verifyAuthToken(token) {
   const segments = token.split(".");
 

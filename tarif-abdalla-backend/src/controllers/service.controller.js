@@ -2,6 +2,7 @@ const createError = require("http-errors");
 const Service = require("../models/service.model");
 const { isValidObjectId, mapToPublicIds, toPublicId } = require("../utils/to-public-id");
 
+// Creates a new service record.
 const createService = async (req, res, next) => {
   try {
     const service = await Service.create(req.body);
@@ -16,6 +17,7 @@ const createService = async (req, res, next) => {
   }
 };
 
+// Returns all services sorted by creation date.
 const getServices = async (req, res, next) => {
   try {
     const services = await Service.find().sort({ createdAt: 1 });
@@ -30,6 +32,7 @@ const getServices = async (req, res, next) => {
   }
 };
 
+// Returns a single service by id.
 const getServiceById = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -54,6 +57,7 @@ const getServiceById = async (req, res, next) => {
   }
 };
 
+// Updates a single service by id.
 const updateServiceById = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -80,6 +84,7 @@ const updateServiceById = async (req, res, next) => {
   }
 };
 
+// Deletes a single service by id.
 const deleteServiceById = async (req, res, next) => {
   try {
     const { id } = req.params;

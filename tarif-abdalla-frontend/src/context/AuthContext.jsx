@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useMemo, useState } from "react";
 
@@ -5,19 +6,23 @@ import { clearStoredSession, readStoredSession, writeStoredSession } from "../ap
 
 const AuthContext = createContext(null);
 
+// Provides authentication state and actions to the app tree.
 export function AuthProvider({ children }) {
   const [session, setSession] = useState(() => readStoredSession());
 
+  // Persists and applies a new signed-in session.
   function signIn(nextSession) {
     writeStoredSession(nextSession);
     setSession(nextSession);
   }
 
+  // Clears session state and removes persisted auth data.
   function signOut() {
     clearStoredSession();
     setSession(null);
   }
 
+  // Updates the signed-in user profile without losing the token.
   function updateUser(nextUser) {
     setSession((current) => {
       if (!current) {
@@ -46,6 +51,7 @@ export function AuthProvider({ children }) {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
+// Returns the auth context and enforces provider usage.
 export function useAuth() {
   const context = useContext(AuthContext);
 

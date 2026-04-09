@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 import { apiRequest } from "../api";
 
+// Registers a new user account through the backend signup endpoint.
 export default function SignUp() {
   const navigate = useNavigate();
   const [form, setForm] = useState({
@@ -14,11 +15,13 @@ export default function SignUp() {
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Updates controlled sign-up form values.
   function onChange(event) {
     const { name, value } = event.target;
     setForm((current) => ({ ...current, [name]: value }));
   }
 
+  // Creates a new account and redirects to sign-in with context.
   async function onSubmit(event) {
     event.preventDefault();
 

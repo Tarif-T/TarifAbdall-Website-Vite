@@ -3,6 +3,7 @@ const createError = require("http-errors");
 const User = require("../models/user.model");
 const { verifyAuthToken } = require("../utils/token");
 
+// Validates bearer tokens and attaches the authenticated user to the request.
 async function authenticate(req, res, next) {
   try {
     const authorization = req.headers.authorization || "";

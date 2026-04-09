@@ -4,14 +4,17 @@ const { isValidObjectId, toPublicId } = require("../utils/to-public-id");
 const { hashPassword, verifyPassword } = require("../utils/password");
 const { createAuthToken } = require("../utils/token");
 
+// Normalizes email values for stable uniqueness and lookup behavior.
 const normalizeEmail = (email) => String(email || "").trim().toLowerCase();
 
+// Removes sensitive fields from user payloads before returning them.
 const sanitizeUser = (user) => {
   const publicUser = user?._id ? toPublicId(user) : { ...user };
   delete publicUser.password;
   return publicUser;
 };
 
+// Maps duplicate key database errors into API conflict responses.
 const handleDuplicateEmail = (error, next) => {
   if (error?.code === 11000) {
     return next(createError(409, "A user with this email already exists."));
@@ -20,6 +23,7 @@ const handleDuplicateEmail = (error, next) => {
   return next(error);
 };
 
+// Creates a new user with a hashed password.
 const createUser = async (req, res, next) => {
   try {
     const email = normalizeEmail(req.body.email);
@@ -49,6 +53,7 @@ const createUser = async (req, res, next) => {
   }
 };
 
+// Authenticates a user and returns an auth token.
 const signInUser = async (req, res, next) => {
   try {
     const email = normalizeEmail(req.body.email);
@@ -89,6 +94,7 @@ const signInUser = async (req, res, next) => {
   }
 };
 
+// Returns all users without password hashes.
 const getUsers = async (req, res, next) => {
   try {
     const users = await User.find().sort({ created: 1 }).select("-password");
@@ -103,6 +109,7 @@ const getUsers = async (req, res, next) => {
   }
 };
 
+// Returns a single user by id.
 const getUserById = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -127,6 +134,7 @@ const getUserById = async (req, res, next) => {
   }
 };
 
+// Updates an existing user and re-hashes password when provided.
 const updateUserById = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -166,6 +174,7 @@ const updateUserById = async (req, res, next) => {
   }
 };
 
+// Deletes a user record by id.
 const deleteUserById = async (req, res, next) => {
   try {
     const { id } = req.params;

@@ -39,6 +39,7 @@ const studioPrinciples = [
   { title: "Build", description: "AI workflows and software execution." },
 ];
 
+// Renders the background narrative, principles, and skill focus areas.
 export default function About() {
   return (
     <div className="container">
@@ -48,10 +49,9 @@ export default function About() {
           <div>
             <h1>A multidisciplinary path shaping how I build software today.</h1>
             <p className="section-lead">
-              My profile is not built from a single track. It comes from electronic engineering,
-              multimedia and broadcasting work, digital marketing study, and a current focus on AI
-              and software engineering. That combination makes me care deeply about both systems and
-              communication.
+              I’m Tarif Abdalla, a multidisciplinary builder working at the intersection of software, AI, digital marketing, and creative media. My work combines an engineering mindset with communication and product thinking to create solutions that are practical, scalable, and user-focused.
+              Recently, I’ve been focused on projects that move beyond presentation and into systems design: from AI-powered retrieval and knowledge tools to content automation platforms that help creators and businesses turn long-form material into usable digital assets faster. That direction reflects a broader shift in my work toward building products that connect technical architecture, business value, and audience experience.
+              My background in electronic engineering, multimedia, and marketing helps me approach each project from multiple angles. I care about clear structure, smart workflows, strong presentation, and tools that solve real problems for users and teams.
             </p>
           </div>
 

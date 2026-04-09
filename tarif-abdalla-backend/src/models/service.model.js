@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// Defines service offerings displayed in the portfolio.
 const serviceSchema = new mongoose.Schema(
   {
     title: { type: String, required: true, trim: true },

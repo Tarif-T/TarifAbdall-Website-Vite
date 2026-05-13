@@ -1,0 +1,13 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "npm install --prefix tarif-abdalla-frontend",
+  "buildCommand": "npm run build --prefix tarif-abdalla-frontend",
+  "outputDirectory": "tarif-abdalla-frontend/dist",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/((?!api/.*).*)",
+      "destination": "/index.html"
+    }
+  ]
+}

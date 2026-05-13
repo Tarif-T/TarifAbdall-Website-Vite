@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { NavLink } from "react-router-dom";
 
-import { apiRequest } from "../api";
+import { USE_PRESENTATION_FALLBACK, apiRequest } from "../api";
 import { useAuth } from "../context/AuthContext";
+import { apiFallbackNotice, presentationReferences } from "../data/presentationContent";
 
 // Shows direct contact info and backend-managed professional references.
 export default function Contact() {
@@ -10,23 +11,35 @@ export default function Contact() {
   const [references, setReferences] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const [notice, setNotice] = useState("");
 
   useEffect(() => {
     let isMounted = true;
 
     // Loads published references for the contact section.
     async function loadReferences() {
+      if (USE_PRESENTATION_FALLBACK) {
+        setReferences(presentationReferences);
+        setNotice(apiFallbackNotice);
+        setError("");
+        setIsLoading(false);
+        return;
+      }
+
       try {
         setIsLoading(true);
         setError("");
+        setNotice("");
         const response = await apiRequest("/references");
 
         if (isMounted) {
           setReferences(Array.isArray(response.data) ? response.data : []);
         }
-      } catch (err) {
+      } catch {
         if (isMounted) {
-          setError(err.message || "Failed to load references.");
+          setReferences(presentationReferences);
+          setNotice(apiFallbackNotice);
+          setError("");
         }
       } finally {
         if (isMounted) {
@@ -79,6 +92,7 @@ export default function Contact() {
       </section>
 
       {error ? <p className="message error">{error}</p> : null}
+      {notice ? <p className="message info">{notice}</p> : null}
       {isLoading ? <p className="section-card">Loading references...</p> : null}
 
       {!isLoading && sortedReferences.length === 0 ? (

@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { NavLink } from "react-router-dom";
 
-import { apiRequest } from "../api";
+import { USE_PRESENTATION_FALLBACK, apiRequest } from "../api";
 import { useAuth } from "../context/AuthContext";
+import { apiFallbackNotice, presentationServices } from "../data/presentationContent";
 
 // Lists service offerings loaded from the backend API.
 export default function Services() {
@@ -10,23 +11,35 @@ export default function Services() {
   const [services, setServices] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const [notice, setNotice] = useState("");
 
   useEffect(() => {
     let isMounted = true;
 
     // Loads services for the public services page.
     async function loadServices() {
+      if (USE_PRESENTATION_FALLBACK) {
+        setServices(presentationServices);
+        setNotice(apiFallbackNotice);
+        setError("");
+        setIsLoading(false);
+        return;
+      }
+
       try {
         setIsLoading(true);
         setError("");
+        setNotice("");
         const response = await apiRequest("/services");
 
         if (isMounted) {
           setServices(Array.isArray(response.data) ? response.data : []);
         }
-      } catch (err) {
+      } catch {
         if (isMounted) {
-          setError(err.message || "Failed to load services.");
+          setServices(presentationServices);
+          setNotice(apiFallbackNotice);
+          setError("");
         }
       } finally {
         if (isMounted) {
@@ -59,6 +72,7 @@ export default function Services() {
       </section>
 
       {error ? <p className="message error">{error}</p> : null}
+      {notice ? <p className="message info">{notice}</p> : null}
       {isLoading ? <p className="section-card">Loading services...</p> : null}
 
       {!isLoading && sortedServices.length === 0 ? (

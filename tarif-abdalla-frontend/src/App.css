@@ -253,6 +253,7 @@
 .record-content p { margin-bottom: 0.45rem; }
 .message { margin-top: 1rem; padding: 0.9rem 1rem; border-radius: 1rem; }
 .message.success { background: rgba(36, 128, 104, 0.12); border: 1px solid rgba(36, 128, 104, 0.24); }
+.message.info { background: rgba(29, 77, 255, 0.1); border: 1px solid rgba(29, 77, 255, 0.2); }
 .message.error { background: rgba(187, 78, 54, 0.12); border: 1px solid rgba(187, 78, 54, 0.24); }
 
 /* Shared footer shown across the entire site */

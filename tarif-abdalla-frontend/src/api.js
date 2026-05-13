@@ -1,4 +1,7 @@
-const API_BASE = (import.meta.env.VITE_API_BASE_URL || "http://localhost:3000/api").replace(/\/$/, "");
+const DEFAULT_API_BASE = import.meta.env.PROD ? "/api" : "http://localhost:3000/api";
+const CONFIGURED_API_BASE = import.meta.env.VITE_API_BASE_URL;
+const API_BASE = (CONFIGURED_API_BASE || DEFAULT_API_BASE).replace(/\/$/, "");
+const USE_PRESENTATION_FALLBACK = import.meta.env.PROD && !CONFIGURED_API_BASE;
 const AUTH_STORAGE_KEY = "tarif-portfolio-auth";
 
 // Reads the persisted auth session from localStorage.
@@ -55,7 +58,16 @@ export async function apiRequest(path, options = {}) {
     ...fetchOptions,
   });
 
-  const payload = await response.json().catch(() => ({}));
+  const contentType = response.headers.get("content-type") || "";
+  const isJsonResponse = contentType.includes("application/json");
+  const payload = isJsonResponse ? await response.json().catch(() => ({})) : {};
+
+  if (!isJsonResponse) {
+    const error = new Error("API returned a non-JSON response. Check VITE_API_BASE_URL.");
+    error.status = response.status;
+    error.payload = payload;
+    throw error;
+  }
 
   if (!response.ok || payload?.success === false) {
     const error = new Error(payload?.message || `Request failed with status ${response.status}`);
@@ -67,4 +79,4 @@ export async function apiRequest(path, options = {}) {
   return payload;
 }
 
-export { API_BASE, AUTH_STORAGE_KEY };
+export { API_BASE, AUTH_STORAGE_KEY, USE_PRESENTATION_FALLBACK };

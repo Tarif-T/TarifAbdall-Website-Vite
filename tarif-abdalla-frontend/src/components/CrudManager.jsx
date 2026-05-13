@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { startTransition, useCallback, useEffect, useMemo, useState } from "react";
 
 import { apiRequest } from "../api";

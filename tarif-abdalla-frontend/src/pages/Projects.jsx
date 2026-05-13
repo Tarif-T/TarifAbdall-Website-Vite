@@ -5,8 +5,9 @@ import modelOne from "../assets/3D-model01.jpeg";
 import modelTwo from "../assets/3d-model02.jpeg";
 import marketing from "../assets/FB-marketing.jpeg";
 import webApp from "../assets/web-app01.jpeg";
-import { apiRequest } from "../api";
+import { USE_PRESENTATION_FALLBACK, apiRequest } from "../api";
 import { useAuth } from "../context/AuthContext";
+import { apiFallbackNotice, presentationProjects } from "../data/presentationContent";
 
 const projectArtwork = [webApp, marketing, modelOne, modelTwo];
 
@@ -30,6 +31,7 @@ export default function Projects() {
   const [query, setQuery] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const [notice, setNotice] = useState("");
   const deferredQuery = useDeferredValue(query);
 
   useEffect(() => {
@@ -37,17 +39,28 @@ export default function Projects() {
 
     // Loads projects from the API for list rendering.
     async function loadProjects() {
+      if (USE_PRESENTATION_FALLBACK) {
+        setProjects(presentationProjects);
+        setNotice(apiFallbackNotice);
+        setError("");
+        setIsLoading(false);
+        return;
+      }
+
       try {
         setIsLoading(true);
         setError("");
+        setNotice("");
         const response = await apiRequest("/projects");
 
         if (isMounted) {
           setProjects(Array.isArray(response.data) ? response.data : []);
         }
-      } catch (err) {
+      } catch {
         if (isMounted) {
-          setError(err.message || "Failed to load projects.");
+          setProjects(presentationProjects);
+          setNotice(apiFallbackNotice);
+          setError("");
         }
       } finally {
         if (isMounted) {
@@ -135,6 +148,7 @@ export default function Projects() {
       </section>
 
       {error ? <p className="message error">{error}</p> : null}
+      {notice ? <p className="message info">{notice}</p> : null}
       {isLoading ? <p className="section-card">Loading projects...</p> : null}
 
       {!isLoading && filteredProjects.length === 0 ? (
